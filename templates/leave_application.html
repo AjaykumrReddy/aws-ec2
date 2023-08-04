@@ -1,0 +1,211 @@
+{% extends 'dashboard.html' %} {% block title %} leave Application {%endblock%}
+{%block leave%} active {%endblock%} {%block content%} {% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<style>
+  .Leaveformclass {
+    margin-top: 30px;
+    float: left;
+    width: 90%;
+    padding: 0 10px;
+  }
+  .title {
+    text-align: center;
+    font-size: large;
+    text-decoration: wavy;
+    font-style: oblique;
+    color: darkgray;
+    font-weight: bold;
+  }
+
+  /* Style the counter cards */
+  .leavecard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4); /* this adds the "card" effect */
+    padding: 25px 50px;
+    background-color: white;
+  }
+  p {
+    text-align: start;
+    margin-top: 20px;
+    color: black;
+    font-weight: bold;
+  }
+  textarea {
+    height: 50px;
+    width: 400px;
+    border-radius: 5px;
+  }
+  table {
+    align-self: flex-start;
+    width: 400px;
+  }
+  #leavefrom,
+  #leaveto {
+    margin-top: 1px;
+  }
+  .leaveformbutton {
+    margin-top: 25px;
+    height: 40px;
+    width: 120px;
+    background-color: #addceb;
+    color: black;
+    font-weight: bold;
+    font-style: oblique;
+    border-width: 1px;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .leaveformbutton:hover {
+    background-color: transparent;
+    border-color: #5bc0de;
+    color: darkgray;
+    /* cursor: all-scroll; */
+  }
+  #leaveTypeValidation,
+  #leaveReasonValidation,
+  #leaveDateValidation,
+  #leaveDaysValidation {
+    display: none;
+  }
+  .leaveTypeValidation,
+  .leaveReasonValidation,
+  .leaveDateValidation,
+  .leaveDaysValidation {
+    color: red;
+    display: inline !important;
+  }
+  #leave_days {
+    height: 30px;
+    width: 200px;
+    border-radius: 5px;
+    border-width: 1px;
+  }
+  /* Responsive columns - one column layout (vertical) on small screens */
+  @media screen and (max-width: 600px) {
+    .Leaveformclass {
+      width: 120%;
+      display: block;
+      padding: 0;
+    }
+    .leavecard{
+      padding: 20px;
+    }
+    #leave_reason{
+      width: 90%;
+    }
+    .leaveDateTable{
+      width: 90%;
+    }
+  }
+</style>
+<div class="Leaveformclass">
+  <div class="title">Leave application form</div>
+  <div class="leavecard">
+    {% if lowcfs %}
+    <div style="text-align: center; color: red">
+      *You Don't have enough Earned leaves
+    </div>
+    {% endif %}
+    <form action="{% url 'leaveform_submit' %}" method="POST">
+      {% csrf_token %}
+      <p>Leave Type</p>
+      <table>
+        <tr>
+          <td>
+            <input type="checkbox" value="earned_leave" name="earned_leave" />
+            Earned Leave
+          </td>
+          <td>
+            <input type="checkbox" value="casual_leave" name="casual_leave" />
+            Casual Leave
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" value="sick_leave" name="sick_leave" /> Sick
+            Leave
+          </td>
+          <td>
+            <input
+              type="checkbox"
+              value="maternity_leave"
+              name="maternity_leave"
+            />
+            Maternity Leave
+          </td>
+        </tr>
+      </table>
+      <div id="leaveTypeValidation">*Select Atleast one Option</div>
+      <p>Reason For Leave</p>
+      <textarea name="leave_reason" id="leave_reason"></textarea></br>
+      <div id="leaveReasonValidation">*Reason For Leave is Required</div>
+      <table class="leaveDateTable">
+        <tr>
+          <td><p>Leave From</p></td>
+          <td><p>Leave To</p></td>
+        </tr>
+        <tr>
+          <td>
+            <input type="date" name="leavefrom" id="leavefrom" />
+          </td>
+          <td><input type="date" name="leaveto" id="leaveto" /></td>
+        </tr>
+        <td id="leaveDateValidation">*Please Select Date</td>
+
+        <tr>
+          <td><p>Leave Days</p></td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="number"
+              name="leave_days"
+              id="leave_days"
+              min="1"
+              required
+            />
+          </td>
+        </tr>
+        <td id="leaveDaysValidation">*Please Enter Number of Days</td>
+      </table>
+      <button
+        class="leaveformbutton"
+        type="submit"
+        id="leaveformbutton"
+        onclick="validateLeaveType()"
+      >
+        Send Request
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  leavefrom.min = new Date().toISOString().split("T")[0];
+  // const fromDate = document.getElementById(fromDatePickerId);
+  leaveto.min = new Date().toISOString().split("T")[0];
+
+  $(document).ready(function () {
+    $("#leaveformbutton").click(function () {
+      checked = $("input[type=checkbox]:checked").length;
+      if (!checked) {
+        $("#leaveTypeValidation").addClass("leaveTypeValidation");
+        return false;
+      }
+      if (!$("#leave_reason").val()) {
+        $("#leaveReasonValidation").addClass("leaveReasonValidation");
+        return false
+      }
+      if (!$("#leavefrom").val() || (!$("#leaveto").val())) {
+        $("#leaveDateValidation").addClass("leaveDateValidation");
+        return false
+      }
+      if (!$("#leave_days").val()) {
+        $("#leaveDaysValidation").addClass("leaveDaysValidation");
+        return false
+      }
+    });
+  });
+</script>
+
+{% endblock %}

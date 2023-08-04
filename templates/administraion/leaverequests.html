@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leave Requests</title>
+  </head>
+  <style>
+    .leaveTable {
+      margin-top: 50px;
+      width: 80%;
+    }
+    tr{
+      text-align: center;
+    
+    }
+    td{
+      padding-top: 15px;
+
+    }
+  </style>
+  <body>
+    <center>
+    <h2>Leave Requests</h2>
+    <table class="leaveTable">
+      <th>Date</th>
+      <th>Eployee ID</th>
+      <th>Eployee Name</th>
+      <th>Leave Type</th>
+      <th>Leave Reason</th>
+      <th>Leave From</th>
+      <th>Leave To</th>
+      <th>Leave Days</th>
+      {% for leave_request in leave_requests %}
+      <tr>
+        <td>{{leave_request.date}}</td>
+        <td>{{leave_request.emp_id}}</td>
+        <td>{{leave_request.emp_name}}</td>
+        <td>Leave Type </td>
+        <td>leave Reason</td>
+        <td>{{leave_request.leavefrom}}</td>
+        <td>{{leave_request.leaveto}}</td>
+        <td>{{leave_request.leave_days}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</center>
+</html>

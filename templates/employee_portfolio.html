@@ -1,0 +1,48 @@
+{% extends 'dashboard.html' %} {% block title %} portfolio {% endblock %}
+{%block portfolio%} active {%endblock%} {%block content%} {% load static %}
+<style>
+  .main-div {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+  }
+  .box-cf,
+  .box-leaves, 
+  .box-somthing {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    border-radius: 10px;
+    padding-top: 25px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: larger;
+    color: blue;
+    text-align: center;
+    align-content: center;
+    background-color: rgb(241, 222, 215);
+    box-shadow: rgba(50, 50, 93, 0.5) 0px 30px 60px -12px,
+      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+  }
+  .box-leaves {
+    background-color: #80b3ff;
+  }
+  .box-somthing {
+    background-color: #80ff80;
+  }
+</style>
+<div class="main-div">
+  <div class="box-cf">
+    <span>CF</span></br>
+    <span>{{employee.cf}}</span>
+  </div>
+  <div class="box-leaves">
+    <span>Leaves</span></br>
+    <span>{{employee.cf}}</span>
+  </div>
+  <div class="box-somthing">
+    <span>Something</span></br>
+    <span>{{employee.cf}}</span>
+  </div>
+</div>
+{% endblock %}

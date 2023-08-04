@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"
+    />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+  </head>
+  <style>
+    .column1 {
+      margin-top: 50px;
+      float: left;
+      width:35%;
+      padding: 0 10px;
+    }
+    .column2 {
+      margin-top: 50px;
+      float: left;
+      width:60%;
+      padding: 0 10px;
+    }
+
+    /* Remove extra left and right margins, due to padding in columns */
+    .row {
+      margin: 0 -5px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Style the counter cards */
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4); /* this adds the "card" effect */
+      padding: 16px;
+      text-align: center;
+      background-color: white;
+    }
+    .card-profile{
+      margin-top: -50px;
+    }
+    label{
+      margin-top: 10px;
+    }
+    .emp-details-table{
+      margin-left: 10px;
+      width: 90%;
+    }
+    .emp-details-table tr td{
+      text-align: left;
+      margin-top: 10px;
+      padding-top: 15px;
+      font-weight: bold;
+    }
+
+    /* Responsive columns - one column layout (vertical) on small screens */
+    @media screen and (max-width: 600px) {
+      .column1 {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar Holder -->
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <img src="{% static 'images/logo.png' %}" alt="logo" width="200px" />
+        </div>
+
+        <ul class="list-unstyled components">
+          <p>Dummy Heading</p>
+          <li class="{% block home %}{% endblock %}">
+            <a href="{% url 'employee_overview' %}">
+              <span class="glyphicon glyphicon-home"> Overview</span>
+            </a>
+          </li>
+          <li class="{% block portfolio %}{% endblock %}">
+            <a href="{% url 'employee_portfolio' %}">
+              <span class="glyphicon glyphicon-user"> Profile</span>
+            </a>
+          </li>
+          <li class="{% block attendance %}{% endblock %}">
+            <a href="#">
+              <span class="glyphicon glyphicon-calendar"> Attendance</span>
+            </a>
+          </li>
+          <li class="{% block leave %}{% endblock %}">
+            <a href="{% url 'leave_application' %}">
+              <span class="glyphicon glyphicon-envelope"> Leave</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="glyphicon glyphicon-earphone"> Contact</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'employee_logout' %}">
+              <span class="glyphicon glyphicon-log-out"> LogOut</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+
+      <!-- Page Content Holder -->
+      <div id="content">
+        <div class="topbar">
+          <div class="toggle_botton">
+            <button
+              type="button"
+              id="sidebarCollapse"
+              class="btn btn-info navbar-btn"
+            >
+              <i class="glyphicon glyphicon-align-left"></i>
+            </button>
+          </div>
+          <div class="profile_details">
+            {{employee.emp_name}}
+            <img
+              src="{{employee.profile.url}}"
+              alt="profile"
+              style="border-radius: 50%"
+              height="50px"
+              width="50px"
+            />
+          </div>
+        </div>
+        {% block content %} {% endblock %}
+    </div>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap Js CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#sidebar").mCustomScrollbar({
+          theme: "minimal",
+        });
+
+        $("#sidebarCollapse").on("click", function () {
+          $("#sidebar, #content").toggleClass("active");
+          $(".collapse.in").toggleClass("in");
+          $("a[aria-expanded=true]").attr("aria-expanded", "false");
+        });
+      });
+    </script>
+  </body>
+</html>
