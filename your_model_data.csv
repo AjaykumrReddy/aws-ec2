@@ -1,3 +1,4 @@
 emp_name,emp_email,emp_id,emp_phone,department,join_date,profile,cf,status
 Ajay Reddy,ajay@gmail.com,DPH-1234,9087654321,PYTHON,2021-05-03,profiles/profile1.png,3,True
 Manasa,manasa@gmail.com,DPH-1235,9876543210,MATLAB,2022-08-09,profiles/profile2.png,4,True
+Test,test@gmail.com,DPH-1111,9078563412,JAVA,2022-07-05,profiles/1685333802422.jpg,1,True
