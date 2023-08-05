@@ -1,3 +1,3 @@
 emp_name,emp_email,emp_id,emp_phone,department,join_date,profile,cf,status
-Ajay,ajay@gmail.com,DPH-1234,9087654321,PYTHON,2021-05-03,static/profiles/profile1_l5KsnX0.png,3,True
-Manasa,manasa@gmail.com,DPH-1235,9876543210,MATLAB,2021-08-04,static/profiles/profile2.png,1,True
+Ajay Reddy,ajay@gmail.com,DPH-1234,9087654321,PYTHON,2021-05-03,profiles/profile1.png,3,True
+Manasa,manasa@gmail.com,DPH-1235,9876543210,MATLAB,2022-08-09,profiles/profile2.png,4,True

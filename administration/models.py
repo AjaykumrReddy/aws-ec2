@@ -20,7 +20,7 @@ class Employee(models.Model):
     emp_alt_phone = models.CharField(max_length=15, null=True, blank=True)
     department = models.CharField(choices=DEPT_CHOICES, max_length=25)
     join_date = models.DateField(default=date.today)
-    profile = models.ImageField(upload_to='static/profiles')
+    profile = models.ImageField(upload_to='profiles')
     cf = models.PositiveIntegerField(default=0)
     address = models.TextField()
     status = models.BooleanField(default=True)
